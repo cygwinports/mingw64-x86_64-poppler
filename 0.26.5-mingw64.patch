@@ -1,0 +1,32 @@
+--- origsrc/poppler-0.26.5/qt4/tests/stress-threads-qt4.cpp	2014-04-26 10:37:22.000000000 -0500
++++ src/poppler-0.26.5/qt4/tests/stress-threads-qt4.cpp	2014-10-31 11:36:27.467409500 -0500
+@@ -2,7 +2,7 @@
+ #ifndef _WIN32
+ #include <unistd.h>
+ #else
+-#include <Windows.h>
++#include <windows.h>
+ #define sleep Sleep
+ #endif
+ #include <time.h>
+--- origsrc/poppler-0.26.5/qt5/tests/stress-threads-qt5.cpp	2014-04-26 10:37:22.000000000 -0500
++++ src/poppler-0.26.5/qt5/tests/stress-threads-qt5.cpp	2014-10-31 12:12:47.078685000 -0500
+@@ -2,7 +2,7 @@
+ #ifndef _WIN32
+ #include <unistd.h>
+ #else
+-#include <Windows.h>
++#include <windows.h>
+ #define sleep Sleep
+ #endif
+ #include <time.h>
+--- origsrc/poppler-0.26.5/test/perf-test.cc	2014-10-31 12:14:00.518010600 -0500
++++ src/poppler-0.26.5/test/perf-test.cc	2014-10-31 11:18:27.000000000 -0500
+@@ -21,6 +21,7 @@
+ #endif
+ 
+ #ifdef _WIN32
++#define MINGW_HAS_SECURE_API 1
+ #include <windows.h>
+ #else
+ #include <strings.h>
