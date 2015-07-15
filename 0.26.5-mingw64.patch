@@ -1,3 +1,13 @@
+--- origsrc/poppler-0.30.0/poppler/GlobalParams.cc	2015-01-04 10:27:05.000000000 -0600
++++ src/poppler-0.30.0/poppler/GlobalParams.cc	2015-07-14 18:39:16.809754300 -0500
+@@ -56,6 +56,7 @@
+ #  endif
+ #endif
+ #ifdef _WIN32
++#  include <windows.h>
+ #  include <shlobj.h>
+ #  include <mbstring.h>
+ #endif
 --- origsrc/poppler-0.26.5/test/perf-test.cc	2014-10-31 12:14:00.518010600 -0500
 +++ src/poppler-0.26.5/test/perf-test.cc	2014-10-31 11:18:27.000000000 -0500
 @@ -21,6 +21,7 @@

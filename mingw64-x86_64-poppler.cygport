@@ -3,7 +3,7 @@ inherit cross qt4 qt5 gnome2
 
 NAME="mingw64-x86_64-poppler"
 VERSION=0.30.0
-RELEASE=1
+RELEASE=2
 CATEGORY="Devel"
 SUMMARY="PDF rendering library for Win64 toolchain"
 DESCRIPTION="Poppler is a fork of the xpdf PDF viewer which provides PDF
