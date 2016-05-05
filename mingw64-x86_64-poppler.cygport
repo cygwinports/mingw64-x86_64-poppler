@@ -3,7 +3,7 @@ inherit cross qt4 qt5 gnome2
 
 NAME="mingw64-x86_64-poppler"
 VERSION=0.36.0
-RELEASE=1
+RELEASE=3
 CATEGORY="Devel"
 SUMMARY="PDF rendering library for Win64 toolchain"
 DESCRIPTION="Poppler is a fork of the xpdf PDF viewer which provides PDF
@@ -16,6 +16,7 @@ SRC_DIR="poppler-${VERSION}"
 PATCH_URI="
 	http://pkgs.fedoraproject.org/cgit/poppler.git/plain/poppler-0.30.0-rotated-words-selection.patch?h=f22
 	http://pkgs.fedoraproject.org/cgit/poppler.git/plain/poppler-0.24.2-mocversiongrep.patch?h=f22
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/poppler-0.34.0-heap-buffer-overflow-fix.patch?h=f23
 	0.26.5-mingw64.patch
 "
 
