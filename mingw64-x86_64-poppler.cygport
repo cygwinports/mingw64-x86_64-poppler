@@ -2,8 +2,8 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross qt4 qt5 gnome2
 
 NAME="mingw64-x86_64-poppler"
-VERSION=0.36.0
-RELEASE=3
+VERSION=0.45.0
+RELEASE=1
 CATEGORY="Devel"
 SUMMARY="PDF rendering library for Win64 toolchain"
 DESCRIPTION="Poppler is a fork of the xpdf PDF viewer which provides PDF
@@ -14,9 +14,8 @@ HOMEPAGE="http://poppler.freedesktop.org/"
 SRC_URI="http://poppler.freedesktop.org/poppler-${VERSION}.tar.xz"
 SRC_DIR="poppler-${VERSION}"
 PATCH_URI="
-	http://pkgs.fedoraproject.org/cgit/poppler.git/plain/poppler-0.30.0-rotated-words-selection.patch?h=f22
-	http://pkgs.fedoraproject.org/cgit/poppler.git/plain/poppler-0.24.2-mocversiongrep.patch?h=f22
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/poppler-0.34.0-heap-buffer-overflow-fix.patch?h=f23
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/poppler-0.30.0-rotated-words-selection.patch
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/poppler-0.24.2-mocversiongrep.patch
 	0.26.5-mingw64.patch
 "
 
@@ -70,6 +69,7 @@ DISTCLEANFILES="glib/*.gir"
 DIFF_EXCLUDES="poppler-config.h"
 
 CYGCONF_ARGS="
+	--disable-static
 	--disable-gtk-test
 	--enable-libcurl
 	--enable-libjpeg
