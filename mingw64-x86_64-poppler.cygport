@@ -2,7 +2,7 @@ CROSS_HOST="x86_64-w64-mingw32"
 inherit cross qt4 qt5 gnome2
 
 NAME="mingw64-x86_64-poppler"
-VERSION=0.52.0
+VERSION=0.57.0
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="PDF rendering library for Win64 toolchain"
@@ -15,6 +15,15 @@ SRC_URI="http://poppler.freedesktop.org/poppler-${VERSION}.tar.xz"
 SRC_DIR="poppler-${VERSION}"
 PATCH_URI="
 	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/poppler-0.30.0-rotated-words-selection.patch
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14520.patch?h=f27
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14517.patch?h=f27
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14518.patch?h=f27
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14519.patch?h=f27
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14929.patch?h=f27
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14617.patch?h=f27
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14926.patch?h=f27
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14927.patch?h=f27
+	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14928.patch?h=f27
 	0.26.5-mingw64.patch
 "
 
