@@ -1,8 +1,8 @@
 CROSS_HOST="x86_64-w64-mingw32"
-inherit cross qt4 qt5 gnome2
+inherit cross qt5 cmake
 
 NAME="mingw64-x86_64-poppler"
-VERSION=0.57.0
+VERSION=0.62.0
 RELEASE=1
 CATEGORY="Devel"
 SUMMARY="PDF rendering library for Win64 toolchain"
@@ -14,16 +14,7 @@ HOMEPAGE="http://poppler.freedesktop.org/"
 SRC_URI="http://poppler.freedesktop.org/poppler-${VERSION}.tar.xz"
 SRC_DIR="poppler-${VERSION}"
 PATCH_URI="
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/poppler-0.30.0-rotated-words-selection.patch
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14520.patch?h=f27
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14517.patch?h=f27
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14518.patch?h=f27
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14519.patch?h=f27
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14929.patch?h=f27
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14617.patch?h=f27
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14926.patch?h=f27
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14927.patch?h=f27
-	http://pkgs.fedoraproject.org/cgit/rpms/poppler.git/plain/CVE-2017-14928.patch?h=f27
+	http://src.fedoraproject.org/cgit/rpms/poppler.git/plain/poppler-0.30.0-rotated-words-selection.patch
 	0.26.5-mingw64.patch
 "
 
@@ -32,15 +23,13 @@ DEPEND="pkgconfig(cairo)
 	pkgconfig(glib-2.0)
 	pkgconfig(lcms2)
 	pkgconfig(libcurl)
-	pkgconfig(libopenjpeg)
+	pkgconfig(libopenjp2)
 	pkgconfig(libpng)
-	pkgconfig(QtXml)
-	pkgconfig(QtGui)
 	pkgconfig(Qt5Widgets)
 	libjpeg-devel
 	libtiff-devel"
 
-PKG_NAMES="${NAME} ${NAME}-cpp ${NAME}-glib ${NAME}-qt4 ${NAME}-qt5"
+PKG_NAMES="${NAME} ${NAME}-cpp ${NAME}-glib ${NAME}-qt5"
 mingw64_x86_64_poppler_CONTENTS="
 	--exclude=*cpp* --exclude=*glib* --exclude=*qt4* --exclude=*qt5*
 	${CROSS_BINDIR#/}/libpoppler-*.dll
@@ -60,12 +49,6 @@ mingw64_x86_64_poppler_glib_CONTENTS="
 	${CROSS_INCLUDEDIR#/}/poppler/glib/
 	${CROSS_LIBDIR#/}/libpoppler-glib.*
 	${CROSS_LIBDIR#/}/pkgconfig/poppler-glib.pc"
-mingw64_x86_64_poppler_qt4_SUMMARY="${SUMMARY} (Qt4 bindings)"
-mingw64_x86_64_poppler_qt4_CONTENTS="
-	${CROSS_BINDIR#/}/libpoppler-qt4-*.dll
-	${CROSS_INCLUDEDIR#/}/poppler/qt4/
-	${CROSS_LIBDIR#/}/libpoppler-qt4.*
-	${CROSS_LIBDIR#/}/pkgconfig/poppler-qt4.pc"
 mingw64_x86_64_poppler_qt5_SUMMARY="${SUMMARY} (Qt5 bindings)"
 mingw64_x86_64_poppler_qt5_CONTENTS="
 	${CROSS_BINDIR#/}/libpoppler-qt5-*.dll
@@ -76,20 +59,18 @@ mingw64_x86_64_poppler_qt5_CONTENTS="
 DISTCLEANFILES="glib/*.gir"
 DIFF_EXCLUDES="poppler-config.h"
 
-CYGCONF_ARGS="
-	--disable-static
-	--disable-gtk-test
-	--enable-libcurl
-	--enable-libjpeg
-	--enable-libopenjpeg=auto
-	--enable-libpng
-	--enable-libtiff
-	--enable-poppler-cpp
-	--enable-poppler-glib
-	--enable-poppler-qt4
-	--enable-poppler-qt5
-	--disable-utils
-	--enable-xpdf-headers
-	MOCQT4=${QT4_MOC}
-	MOCQT5=${QT5_MOC}
+# BUILD_QT5_TESTS: uses private symbols which are not dllexport'ed
+CYGCMAKE_ARGS="
+	-DENABLE_XPDF_HEADERS=ON
+	-DENABLE_CPP=ON
+	-DENABLE_GLIB=ON
+	-DENABLE_GTK_DOC=OFF
+	-DENABLE_QT5=ON
+	-DBUILD_QT5_TESTS=OFF
+	-DENABLE_UTILS=OFF
+	-DENABLE_LIBOPENJPEG=openjpeg2
+	-DENABLE_CMS=lcms2
+	-DENABLE_DCTDECODER=libjpeg
+	-DENABLE_LIBCURL=ON
+	-DENABLE_ZLIB=ON
 "
